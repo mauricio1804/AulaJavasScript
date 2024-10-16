@@ -1,0 +1,203 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <form id="verificaMaior">
+        <label for="text">Primeiro Numero: </label>
+        <input type="text" id="num1" name="num1">
+        <label for="text">Segundo Numero: </label>
+        <input type="text" id="num2" name="num2">
+        <button id="verificar" type="submit">Bora dar aquela verificada</button>
+    </form>
+
+    <form id="notaUsuario">
+        <label for="text">Nota do Usuário</label>
+        <input type="text" id="nota" name="nota">
+        <button id="VerificaNota"  type="submit">Verificar Aprovação</button>
+    </form>
+
+    <form id="mediaVetor">
+        <label for="text">Vetor: </label>
+        <input type="text" id="vetor">
+        <button onclick="calcularMedia()">Média Vetor</button>
+
+        <p id="resultado"></p>
+    </form>
+
+    <form id="VerificaLetra">
+        <label for="text">Digite uma letra: </label>
+        <input type="text" id="letra">
+        <button onclick="verificarLetra()">Letra: </button>
+    </form>
+
+    <h1>Soma dos Elementos da Matriz</h1>
+    <p>Insira os números da matriz separados por vírgula (exemplo: 1,2,3,4):</p>
+    <input type="text" id="inputMatriz" placeholder="Digite os números">
+    <button onclick="calcularSoma()">Calcular Soma</button>
+    <p id="resultadoSoma"></p>
+
+    <h1>Fatorial de um Número</h1>
+    <p>Insira um número para calcular o fatorial:</p>
+    <input type="number" id="inputNumero" placeholder="Digite o número">
+    <button onclick="calcularFatorial()">Calcular Fatorial</button>
+    <p id="resultadoFatorial"></p>
+
+    <h1>Menu de Opções</h1>
+    <p>Escolha uma opção:</p>
+    <select id="menuOpcoes">
+        <option value="1">Opção 1</option>
+        <option value="2">Opção 2</option>
+        <option value="3">Opção 3</option>
+    </select>
+    <button onclick="mostrarOpcao()">Mostrar Opção Escolhida</button>
+    <p id="resultadoOpcao"></p>
+
+    <h1>Maior Número de um Vetor</h1>
+    <p>Insira os números do vetor separados por vírgula (exemplo: 1,2,3,4):</p>
+    <input type="text" id="inputVetor" placeholder="Digite os números">
+    <button onclick="mostrarMaior()">Mostrar Maior Número</button>
+    <p id="resultadoMaior"></p>
+
+    <h1>Média dos Elementos da Matriz</h1>
+    <p>Insira os números da matriz separados por vírgula (exemplo: 1,2,3,4):</p>
+    <input type="text" id="inputMatrizMedia" placeholder="Digite os números">
+    <button onclick="calcularMediaMatriz()">Calcular Média</button>
+    <p id="resultadoMedia"></p>
+
+
+    <script>
+        // Atividade 1
+        const verificaMaior = document.getElementById('verificaMaior');
+        verificaMaior.addEventListener('submit', function(evento){
+            evento.preventDefault();
+            const num1 = document.getElementById('num1').value;
+            const num2 = document.getElementById('num2').value;
+           if(num1 > num2){
+            alert("num1 é maior");
+            return false;
+           } else {
+            alert("num2 é maior");
+            return false;
+           }
+        });
+
+        // Atividade 3
+        const notaUsuario = document.getElementById('notaUsuario');
+        notaUsuario.addEventListener('submit', function(){
+            const nota = document.getElementById('nota').value;
+            if(nota < 6){
+                alert("Reprovado");
+            } else if(nota >= 6 && nota <= 8){
+                alert("Aprovado");
+            } else if(nota > 8 && nota <= 10){
+                alert("Aprovado com Louvor");
+            } else if(nota > 10){
+                alert("A nota precisa estar no intervalo de 0-10");
+            }
+        });
+
+        // Atividade 4
+        function calcularMedia() {
+            let numeros = document.getElementById('vetor').value;
+
+            let arrayNumeros = numeros.split(',').map(num => parseFloat(num.trim()));
+
+            if (arrayNumeros.some(isNaN)) {
+                document.getElementById('resultado').innerText = "Por favor, insira apenas números.";
+                return;
+            }
+
+            let soma = arrayNumeros.reduce((acc, num) => acc + num, 0);
+
+            let media = soma / arrayNumeros.length;
+
+            alert(`A média dos números é: ${media.toFixed(2)}`);
+        }
+
+        // Atividade 5
+        function verificarLetra(){
+            let letra = document.getElementById('letra').value;
+            if(letra === 'a'){
+                alert("A");
+            } else if(letra === 'b'){
+                alert("B");
+            } else {
+                alert("Outra Letra");
+            }
+        }
+
+        // Atividade 6
+        function calcularSoma() {
+            let matriz = document.getElementById('inputMatriz').value.split(',').map(num => parseFloat(num.trim()));
+            if (matriz.some(isNaN)) {
+                document.getElementById('resultadoSoma').innerText = "Por favor, insira números válidos.";
+                return;
+            }
+            let soma = matriz.reduce((acc, num) => acc + num, 0);
+            document.getElementById('resultadoSoma').innerText = `A soma dos elementos é: ${soma}`;
+        }
+
+        // Atividade 7
+        function calcularFatorial() {
+            let numero = parseInt(document.getElementById('inputNumero').value);
+            if (isNaN(numero) || numero < 0) {
+                document.getElementById('resultadoFatorial').innerText = "Por favor, insira um número inteiro não negativo.";
+                return;
+            }
+            let fatorial = 1;
+            for (let i = 1; i <= numero; i++) {
+                fatorial *= i;
+            }
+            document.getElementById('resultadoFatorial').innerText = `O fatorial de ${numero} é: ${fatorial}`;
+        }
+
+        // Atividade 8
+        function mostrarOpcao() {
+            let opcao = document.getElementById('menuOpcoes').value;
+            let mensagem;
+            switch (opcao) {
+                case '1':
+                    mensagem = "Opção 1 escolhida";
+                    break;
+                case '2':
+                    mensagem = "Opção 2 escolhida";
+                    break;
+                case '3':
+                    mensagem = "Opção 3 escolhida";
+                    break;
+                default:
+                    mensagem = "Opção inválida";
+            }
+            document.getElementById('resultadoOpcao').innerText = mensagem;
+        }
+
+        // Atividade 9
+        function mostrarMaior() {
+            let vetor = document.getElementById('inputVetor').value.split(',').map(num => parseFloat(num.trim()));
+            if (vetor.some(isNaN)) {
+                document.getElementById('resultadoMaior').innerText = "Por favor, insira números válidos.";
+                return;
+            }
+            let maior = Math.max(...vetor);
+            document.getElementById('resultadoMaior').innerText = `O maior número é: ${maior}`;
+        }
+
+        // Atividade 10
+        function calcularMediaMatriz() {
+            let matriz = document.getElementById('inputMatrizMedia').value.split(',').map(num => parseFloat(num.trim()));
+            if (matriz.some(isNaN)) {
+                document.getElementById('resultadoMedia').innerText = "Por favor, insira números válidos.";
+                return;
+            }
+            let soma = matriz.reduce((acc, num) => acc + num, 0);
+            let media = soma / matriz.length;
+            document.getElementById('resultadoMedia').innerText = `A média dos elementos é: ${media.toFixed(2)}`;
+        }
+
+    </script>
+</body>
+</html>
